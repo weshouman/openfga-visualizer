@@ -1,0 +1,173 @@
+.app-shell {
+  display: grid;
+  grid-template-columns: 360px 1fr 1fr;
+  grid-template-rows: auto auto auto 1fr;
+  grid-template-areas:
+    "header header header"
+    "check  check  check"
+    "config tuples graph"
+    "model  tuples graph";
+  height: 100vh;
+  gap: 1px;
+  background: var(--border-color);
+}
+
+.app-header {
+  grid-area: header;
+  background: var(--bg);
+  padding: 16px 24px;
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+}
+
+.app-header h1 {
+  font-family: var(--font-display);
+  font-size: 22px;
+  font-weight: 400;
+  color: var(--fg);
+  letter-spacing: 0.01em;
+}
+
+.header-sub {
+  font-family: var(--font-mono);
+  font-size: 11px;
+  font-weight: 400;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+}
+
+.header-source {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--accent-teal);
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  padding: 3px 8px;
+  border: 1px solid var(--accent-teal);
+  border-radius: 3px;
+  opacity: 0.8;
+}
+
+.color-mode-control {
+  margin-left: auto;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+}
+
+.control-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.panel {
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  background: var(--bg-elevated);
+}
+
+#check-panel  { grid-area: check; }
+#config-panel { grid-area: config; }
+#model-panel  { grid-area: model; }
+#tuples-panel { grid-area: tuples; }
+#graph-panel  { grid-area: graph; }
+
+/* When config panel is collapsed, model spans both rows */
+#model-panel.expanded {
+  grid-row: 3 / 5;
+}
+
+/* When collapsed, only the header row remains visible */
+
+.panel-header {
+  padding: 12px 16px;
+  border-bottom: 1px solid var(--border-color);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-shrink: 0;
+}
+
+.panel-label {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  font-weight: 500;
+  color: var(--fg-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+}
+
+.panel-count {
+  font-family: var(--font-mono);
+  font-size: 10px;
+  color: var(--fg-dim);
+}
+
+.panel-body {
+  flex: 1;
+  overflow-y: auto;
+  padding: 12px 16px;
+}
+
+.panel-body-graph {
+  padding: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Collapsible panel toggle */
+.panel-toggle {
+  background: none;
+  border: none;
+  color: var(--fg-muted);
+  cursor: pointer;
+  font-size: 12px;
+  padding: 2px 6px;
+  transition: transform 0.2s;
+}
+
+.panel-toggle:hover {
+  color: var(--fg);
+}
+
+.panel.collapsed .panel-toggle {
+  transform: rotate(-90deg);
+}
+
+.panel.collapsed .panel-body {
+  display: none;
+}
+
+@media (max-width: 900px) {
+  .app-shell {
+    grid-template-columns: 1fr;
+    grid-template-rows: auto auto auto auto auto 300px;
+    grid-template-areas:
+      "header"
+      "check"
+      "config"
+      "model"
+      "tuples"
+      "graph";
+    height: auto;
+    min-height: 100vh;
+  }
+
+  #model-panel.expanded {
+    grid-row: auto;
+  }
+
+  #model-panel,
+  #tuples-panel {
+    max-height: 50vh;
+  }
+}

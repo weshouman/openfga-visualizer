@@ -1,0 +1,6 @@
+module organizations
+
+extend type organization
+  relations
+    define can_manage_members: admin
+    define can_view_organization: member

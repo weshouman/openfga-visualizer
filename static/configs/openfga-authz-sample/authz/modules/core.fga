@@ -1,0 +1,12 @@
+module core
+
+type user
+
+type group
+  relations
+    define member: [user]
+
+type organization
+  relations
+    define admin: [user]
+    define member: [user] or admin

@@ -1,0 +1,47 @@
+name: billing authorization tests
+model_file: ../fga.mod
+tuple_files:
+  - ../tuples/global.test.yaml
+  - ../tuples/billing.test.yaml
+
+tests:
+  - name: organization billing roles
+    check:
+      - user: user:anne
+        object: organization:acme
+        assertions:
+          can_view_billing: true
+          can_manage_billing: true
+      - user: user:carol
+        object: organization:acme
+        assertions:
+          can_view_billing: true
+          can_manage_billing: true
+      - user: user:bob
+        object: organization:acme
+        assertions:
+          can_view_billing: false
+          can_manage_billing: false
+
+  - name: invoice access
+    check:
+      - user: user:anne
+        object: invoice:inv-001
+        assertions:
+          viewer: true
+          payer: true
+      - user: user:carol
+        object: invoice:inv-001
+        assertions:
+          viewer: true
+          payer: true
+      - user: user:grace
+        object: invoice:inv-001
+        assertions:
+          viewer: true
+          payer: false
+      - user: user:bob
+        object: invoice:inv-001
+        assertions:
+          viewer: false
+          payer: false

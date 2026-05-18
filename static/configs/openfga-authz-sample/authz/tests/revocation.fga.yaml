@@ -1,0 +1,26 @@
+name: revocation behavior tests
+model_file: ../fga.mod
+tuple_files:
+  - ../tuples/global.test.yaml
+  - ../tuples/documents.test.yaml
+
+tests:
+  - name: no access without direct share or inheritance
+    check:
+      - user: user:bob
+        object: document:secret
+        assertions:
+          viewer: false
+          editor: false
+
+  - name: direct share grants access until tuple is deleted
+    tuples:
+      - user: user:bob
+        relation: viewer
+        object: document:secret
+    check:
+      - user: user:bob
+        object: document:secret
+        assertions:
+          viewer: true
+          editor: false

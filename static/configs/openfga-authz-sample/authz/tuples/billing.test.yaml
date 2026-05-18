@@ -1,0 +1,7 @@
+- user: organization:acme
+  relation: organization
+  object: invoice:inv-001
+
+- user: user:grace
+  relation: viewer
+  object: invoice:inv-001

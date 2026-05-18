@@ -1,0 +1,21 @@
+module documents
+
+extend type organization
+  relations
+    define can_create_folder: admin
+
+type folder
+  relations
+    define organization: [organization]
+    define owner: [user] or admin from organization
+    define editor: [user] or owner
+    define viewer: [user, group#member] or editor or member from organization
+    define can_create_document: editor
+
+type document
+  relations
+    define parent: [folder]
+    define owner: [user] or owner from parent
+    define editor: [user] or owner or editor from parent
+    define viewer: [user, group#member] or editor or viewer from parent
+    define can_share: owner

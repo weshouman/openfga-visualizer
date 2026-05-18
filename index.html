@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>OpenFGA Visualizer</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Mono:wght@300;400;500&family=DM+Sans:wght@300;400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="static/css/theme.css">
+  <link rel="stylesheet" href="static/css/layout.css">
+  <link rel="stylesheet" href="static/css/panels.css">
+  <link rel="stylesheet" href="static/css/graph.css">
+</head>
+<body>
+  <div class="app-shell">
+    <header class="app-header">
+      <h1>OpenFGA Visualizer</h1>
+      <span class="header-sub">Configurable Authorization Model Explorer</span>
+      <span class="header-source" id="user-source-badge"></span>
+      <div class="color-mode-control">
+        <span class="control-label">Color by</span>
+        <select id="color-mode-select">
+          <option value="type">Type</option>
+          <option value="relation">Relation</option>
+          <option value="user">User Entity</option>
+        </select>
+      </div>
+    </header>
+
+    <section id="check-panel" class="panel">
+      <div class="panel-header">
+        <span class="panel-label">Access Check</span>
+        <div class="test-controls">
+          <select id="test-select"><option value="">-- select test --</option></select>
+          <button id="test-load-btn" class="test-btn" type="button" title="Load test into check fields">Load</button>
+          <button id="test-run-btn" class="test-btn" type="button" title="Run all assertions">Run</button>
+          <button id="test-delete-btn" class="test-btn test-btn-danger" type="button" title="Delete custom test">Del</button>
+          <button id="save-query-btn" class="test-btn test-btn-save" type="button" title="Save current query as test">Save</button>
+        </div>
+      </div>
+      <div class="check-form">
+        <div class="check-inputs">
+          <label class="check-field">
+            <span class="check-field-label">User</span>
+            <select id="check-user"></select>
+          </label>
+          <label class="check-field">
+            <span class="check-field-label">Relation</span>
+            <select id="check-relation"></select>
+          </label>
+          <label class="check-field">
+            <span class="check-field-label">Object</span>
+            <select id="check-object"></select>
+          </label>
+          <button id="check-btn" type="button">Check</button>
+        </div>
+        <div class="check-result" id="check-result"></div>
+      </div>
+      <div class="test-results" id="test-results" style="display: none;"></div>
+    </section>
+
+    <section id="config-panel" class="panel collapsible">
+      <div class="panel-header">
+        <span class="panel-label">Schema Editor</span>
+        <div class="editor-mode-toggle" id="editor-mode-toggle">
+          <button class="mode-btn active" data-mode="single" type="button">Single File</button>
+          <button class="mode-btn" data-mode="project" type="button">Upload Project</button>
+        </div>
+        <button class="panel-toggle" id="config-toggle" type="button">&#9660;</button>
+      </div>
+      <div class="panel-body" id="config-content"></div>
+    </section>
+
+    <section id="model-panel" class="panel">
+      <div class="panel-header">
+        <span class="panel-label">Authorization Model</span>
+      </div>
+      <div class="panel-body" id="model-content"></div>
+    </section>
+
+    <section id="tuples-panel" class="panel">
+      <div class="panel-header">
+        <span class="panel-label">Relationship Tuples</span>
+        <span class="panel-count" id="tuples-count"></span>
+      </div>
+      <div class="panel-body" id="tuples-content"></div>
+    </section>
+
+    <section id="graph-panel" class="panel">
+      <div class="panel-header">
+        <span class="panel-label">Relationship Graph</span>
+      </div>
+      <div class="panel-body panel-body-graph" id="graph-content"></div>
+    </section>
+  </div>
+
+  <script src="static/js/data.js"></script>
+  <script src="static/js/color-modes.js"></script>
+  <script src="static/js/check-engine.js"></script>
+  <script src="static/js/model-renderer.js"></script>
+  <script src="static/js/tuples-renderer.js"></script>
+  <script src="static/js/graph-layout.js"></script>
+  <script src="static/js/graph-renderer.js"></script>
+  <script src="static/js/zip-reader.js"></script>
+  <script src="static/js/yaml-lite.js"></script>
+  <script src="static/js/fga-parser.js"></script>
+  <script src="static/js/project-parser.js"></script>
+  <script src="static/js/schema-editor.js"></script>
+  <script src="static/js/ui.js"></script>
+  <script src="static/js/main.js"></script>
+</body>
+</html>

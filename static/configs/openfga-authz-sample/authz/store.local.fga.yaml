@@ -1,0 +1,6 @@
+name: local-dev
+model_file: fga.mod
+tuple_files:
+  - tuples/global.test.yaml
+  - tuples/documents.test.yaml
+  - tuples/billing.test.yaml

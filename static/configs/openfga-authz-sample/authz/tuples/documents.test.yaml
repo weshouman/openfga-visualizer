@@ -1,0 +1,23 @@
+- user: organization:acme
+  relation: organization
+  object: folder:engineering
+
+- user: user:dana
+  relation: editor
+  object: folder:engineering
+
+- user: group:eng-readers#member
+  relation: viewer
+  object: folder:engineering
+
+- user: folder:engineering
+  relation: parent
+  object: document:roadmap
+
+- user: user:bob
+  relation: editor
+  object: document:roadmap
+
+- user: user:frank
+  relation: viewer
+  object: document:secret

@@ -1,0 +1,62 @@
+name: document authorization tests
+model_file: ../fga.mod
+tuple_files:
+  - ../tuples/global.test.yaml
+  - ../tuples/documents.test.yaml
+
+tests:
+  - name: inherited document access
+    check:
+      - user: user:anne
+        object: document:roadmap
+        assertions:
+          viewer: true
+          editor: true
+          owner: true
+          can_share: true
+      - user: user:bob
+        object: document:roadmap
+        assertions:
+          viewer: true
+          editor: true
+          owner: false
+          can_share: false
+      - user: user:dana
+        object: document:roadmap
+        assertions:
+          viewer: true
+          editor: true
+          owner: false
+      - user: user:erin
+        object: document:roadmap
+        assertions:
+          viewer: true
+          editor: false
+          owner: false
+      - user: user:mallory
+        object: document:roadmap
+        assertions:
+          viewer: false
+          editor: false
+          owner: false
+
+  - name: list documents visible to users
+    list_objects:
+      - user: user:bob
+        type: document
+        assertions:
+          viewer:
+            - document:roadmap
+          editor:
+            - document:roadmap
+      - user: user:erin
+        type: document
+        assertions:
+          viewer:
+            - document:roadmap
+          editor: []
+      - user: user:frank
+        type: document
+        assertions:
+          viewer:
+            - document:secret

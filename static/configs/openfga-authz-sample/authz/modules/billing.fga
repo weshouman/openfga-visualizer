@@ -1,0 +1,13 @@
+module billing
+
+extend type organization
+  relations
+    define billing_admin: [user] or admin
+    define can_view_billing: billing_admin
+    define can_manage_billing: billing_admin
+
+type invoice
+  relations
+    define organization: [organization]
+    define viewer: [user] or can_view_billing from organization
+    define payer: [user] or can_manage_billing from organization

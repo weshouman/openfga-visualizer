@@ -1,0 +1,19 @@
+- user: user:anne
+  relation: admin
+  object: organization:acme
+
+- user: user:bob
+  relation: member
+  object: organization:acme
+
+- user: user:carol
+  relation: billing_admin
+  object: organization:acme
+
+- user: user:mallory
+  relation: member
+  object: organization:evilcorp
+
+- user: user:erin
+  relation: member
+  object: group:eng-readers

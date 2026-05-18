@@ -1,0 +1,117 @@
+{
+  "users": [
+    {
+      "id": "root.user",
+      "display_name": "Root User"
+    },
+    {
+      "id": "new.bot",
+      "display_name": "New Bot"
+    },
+    {
+      "id": "bob.smith",
+      "display_name": "Bob Smith"
+    },
+    {
+      "id": "aly.smith",
+      "display_name": "Aly Smith"
+    }
+  ],
+  "teams": [
+    {
+      "id": "admin",
+      "name": "Admin",
+      "protected": true,
+      "members": [
+        "root.user",
+        "bob.smith"
+      ],
+      "rbac": [
+        {
+          "scope": "system:demo",
+          "role": "admin"
+        },
+        {
+          "scope": "project:*",
+          "role": "admin"
+        }
+      ]
+    },
+    {
+      "id": "platform",
+      "name": "Platform",
+      "protected": false,
+      "members": [
+        "new.bot"
+      ],
+      "rbac": [
+        {
+          "scope": "project:atlas",
+          "role": "editor"
+        },
+        {
+          "scope": "project:bridge",
+          "role": "viewer"
+        }
+      ]
+    },
+    {
+      "id": "delivery",
+      "name": "Delivery",
+      "protected": false,
+      "members": [
+        "aly.smith"
+      ],
+      "rbac": [
+        {
+          "scope": "project:atlas",
+          "role": "viewer"
+        },
+        {
+          "scope": "project:bridge",
+          "role": "editor"
+        }
+      ]
+    }
+  ],
+  "projects": [
+    {
+      "id": "atlas",
+      "name": "Atlas Migration",
+      "description": "Move project services behind the shared identity and authorization stack.",
+      "tasks": [
+        {
+          "id": "atlas-1",
+          "title": "Configure OIDC client",
+          "status": "done",
+          "assignee": "root.user"
+        },
+        {
+          "id": "atlas-2",
+          "title": "Connect OpenFGA checks",
+          "status": "doing",
+          "assignee": "new.bot"
+        }
+      ]
+    },
+    {
+      "id": "bridge",
+      "name": "Bridge Rollout",
+      "description": "Publish project read and edit permissions through team RBAC.",
+      "tasks": [
+        {
+          "id": "bridge-1",
+          "title": "Seed team memberships",
+          "status": "done",
+          "assignee": "aly.smith"
+        },
+        {
+          "id": "bridge-2",
+          "title": "Validate viewer access",
+          "status": "todo",
+          "assignee": "new.bot"
+        }
+      ]
+    }
+  ]
+}

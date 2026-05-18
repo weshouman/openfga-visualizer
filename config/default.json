@@ -1,0 +1,111 @@
+{
+  "model": {
+    "schema_version": "1.1",
+    "type_definitions": [
+      {
+        "type": "user"
+      },
+      {
+        "type": "team",
+        "relations": {
+          "member": {
+            "this": {}
+          }
+        },
+        "metadata": {
+          "relations": {
+            "member": {
+              "directly_related_user_types": [
+                { "type": "user" }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "type": "system",
+        "relations": {
+          "admin": {
+            "this": {}
+          }
+        },
+        "metadata": {
+          "relations": {
+            "admin": {
+              "directly_related_user_types": [
+                { "type": "user" },
+                { "type": "team", "relation": "member" }
+              ]
+            }
+          }
+        }
+      },
+      {
+        "type": "project",
+        "relations": {
+          "viewer": {
+            "this": {}
+          },
+          "editor": {
+            "this": {}
+          },
+          "admin": {
+            "this": {}
+          },
+          "view": {
+            "union": {
+              "child": [
+                { "computedUserset": { "relation": "viewer" } },
+                { "computedUserset": { "relation": "editor" } },
+                { "computedUserset": { "relation": "admin" } }
+              ]
+            }
+          },
+          "edit": {
+            "union": {
+              "child": [
+                { "computedUserset": { "relation": "editor" } },
+                { "computedUserset": { "relation": "admin" } }
+              ]
+            }
+          }
+        },
+        "metadata": {
+          "relations": {
+            "viewer": {
+              "directly_related_user_types": [
+                { "type": "user" },
+                { "type": "team", "relation": "member" }
+              ]
+            },
+            "editor": {
+              "directly_related_user_types": [
+                { "type": "user" },
+                { "type": "team", "relation": "member" }
+              ]
+            },
+            "admin": {
+              "directly_related_user_types": [
+                { "type": "user" },
+                { "type": "team", "relation": "member" }
+              ]
+            }
+          }
+        }
+      }
+    ]
+  },
+  "tuples": [
+    { "user": "user:root.user",       "relation": "member", "object": "team:admin" },
+    { "user": "user:new.bot",         "relation": "member", "object": "team:platform" },
+    { "user": "user:bob.smith",       "relation": "member", "object": "team:admin" },
+    { "user": "user:aly.smith",       "relation": "member", "object": "team:delivery" },
+    { "user": "team:admin#member",    "relation": "admin",  "object": "system:demo" },
+    { "user": "team:admin#member",    "relation": "admin",  "object": "project:atlas" },
+    { "user": "team:admin#member",    "relation": "admin",  "object": "project:bridge" },
+    { "user": "team:platform#member", "relation": "editor", "object": "project:atlas" },
+    { "user": "team:platform#member", "relation": "viewer", "object": "project:bridge" },
+    { "user": "team:delivery#member", "relation": "viewer", "object": "project:atlas" },
+    { "user": "team:delivery#member", "relation": "editor", "object": "project:bridge" }
+  ]
+}
